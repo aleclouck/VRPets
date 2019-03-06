@@ -1,5 +1,6 @@
 ﻿using System;
-namespace AssemblyCSharp
+
+namespace PetManager
 {
     public class Pet
     {

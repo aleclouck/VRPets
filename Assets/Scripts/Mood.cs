@@ -1,27 +1,28 @@
 ﻿using System;
 
-namespace AssemblyCSharp
+namespace PetManager
 {
     public class Mood
     {
         Random rand = new Random();
-        private string[] mood =
+
+        public enum MoodList
         {
-            "neutral", 
-            "happy",
-            "sad",
-            "frightened",
-            "angry"
+            Neutral, 
+            Happy,
+            Sad,
+            Frightened,
+            Angry
         };
 
-        private string state;
+        private MoodList state;
 
         public Mood()
         {
-            state = mood[0];
+            state = MoodList.Neutral;
         }
 
-        public string State
+        public MoodList State
         {
             get
             {
@@ -33,10 +34,11 @@ namespace AssemblyCSharp
             }
         }
 
+        // Set a random mood from enum list.
         public void ChangeMood()
         {
-            int randomMood = rand.Next(mood.Length);
-            state = mood[randomMood];
+            int randomMood = rand.Next(Enum.GetNames(typeof(MoodList)).Length);
+            state = (MoodList)randomMood;
         }
     }
 }
