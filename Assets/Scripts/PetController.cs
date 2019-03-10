@@ -1,29 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public class PetController : MonoBehaviour {
-    private VoiceDetection.SpeechToText petEars;
+public class PetController : MonoBehaviour
+{
+    //public int testNumber;
+    private VoiceDetection.SpeechToText petEars = new VoiceDetection.SpeechToText();
     private PetManager.Pet pet;
     private Rigidbody petBody;
 
     public float jumpForce = 14.0f;
 
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
+        //testNumber = 0;
         pet = new PetManager.Pet();
         DisplayPetStatus();
+        
+        petEars.AddWord("jump");
 
         petBody = GetComponent<Rigidbody>();
-
-        petEars = gameObject.AddComponent<VoiceDetection.SpeechToText>();
-        petEars.AddWord("jump");
-        petEars.AddWord("hello");
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             pet.Mood.ChangeMood();
@@ -32,19 +34,13 @@ public class PetController : MonoBehaviour {
         
         //jumps on voice command
         if (petEars.Hears("jump")) {
-            petBody.velocity = new Vector3(petBody.velocity.x,
-                                            jumpForce,
-                                            petBody.velocity.z);
+            petBody.velocity = new Vector3(0, jumpForce, 0);
             FindObjectOfType<GameAudio.AudioManager>().Play("Jump");
-        }
-
-        //greets when greeted
-        if (petEars.Hears("hello")) {
-            FindObjectOfType<GameAudio.AudioManager>().Play("Hihi");
         }
     }
 
-    public void DisplayPetStatus() {
+    public void DisplayPetStatus()
+    {
         Debug.Log(pet.Name + " is feeling " + pet.Mood.State.ToString());
     }
 }
