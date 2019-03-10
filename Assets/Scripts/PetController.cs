@@ -5,7 +5,7 @@ using UnityEngine;
 public class PetController : MonoBehaviour
 {
     //public int testNumber;
-    private VoiceDetection.SpeechToText petEars = new VoiceDetection.SpeechToText();
+    //private VoiceDetection.SpeechToText petEars = new VoiceDetection.SpeechToText();
     private PetManager.Pet pet;
     private Rigidbody petBody;
 
@@ -17,8 +17,8 @@ public class PetController : MonoBehaviour
         //testNumber = 0;
         pet = new PetManager.Pet();
         DisplayPetStatus();
-        
-        petEars.AddWord("jump");
+
+        VoiceDetection.SpeechToText.AddWord("jump");
 
         petBody = GetComponent<Rigidbody>();
     }
@@ -33,10 +33,11 @@ public class PetController : MonoBehaviour
         }
         
         //jumps on voice command
-        if (petEars.Hears("jump")) {
+        if (VoiceDetection.SpeechToText.Hears("jump")) {
             petBody.velocity = new Vector3(0, jumpForce, 0);
             FindObjectOfType<GameAudio.AudioManager>().Play("Jump");
         }
+
     }
 
     public void DisplayPetStatus()
