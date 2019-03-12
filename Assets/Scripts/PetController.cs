@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public class PetController : MonoBehaviour {
     private VoiceDetection.SpeechToText petEars;
     private PetManager.Pet pet;
     private Rigidbody petBody;
+    private NavMeshAgent petPath;
 
     public float jumpForce = 14.0f;
 
@@ -20,6 +22,9 @@ public class PetController : MonoBehaviour {
         petEars = gameObject.AddComponent<VoiceDetection.SpeechToText>();
         petEars.AddWord("jump");
         petEars.AddWord("hello");
+        petEars.AddWord("come here");
+
+        petPath = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -41,6 +46,12 @@ public class PetController : MonoBehaviour {
         //greets when greeted
         if (petEars.Hears("hello")) {
             FindObjectOfType<GameAudio.AudioManager>().Play("Hihi");
+        }
+
+        //comes to player when beckoned
+        if(petEars.Hears("come here")) {
+            
+            petPath.SetDestination(GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position);
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine.Windows.Speech;
 namespace VoiceDetection {
 
     public class SpeechToText : MonoBehaviour {
-        private KeywordRecognizer treeLayer1;
+        private PhraseRecognizer treeLayer1;
         private List<string> layer1Keys = new List<string>();
         private Dictionary<string, bool> keywordActive = new Dictionary<string, bool>();
 
